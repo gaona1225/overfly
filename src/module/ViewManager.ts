@@ -16,7 +16,6 @@ module game {
 
 		// 获取单例
 		public static getInstance(): ViewManager {
-			console.log('getInstance');
 			if (ViewManager.instance == null) {
                 ViewManager.instance = new ViewManager();
             }
@@ -25,24 +24,22 @@ module game {
 
 		// 开始
 		public start() {
-			console.log('start');
 			this.init();
 			this.initListener();
 		}
 
 		// 初始化数据
 		private init() {
-			console.log('init');
 			this.gameStart = new GameStart();
 			this.gamePlaying = new GamePlaying();
 			this.gameOver = new GameOver();
 			this.addChild(this.gameStart);
 			// this.addChild(this.gamePlaying);
+			// this.addChild(this.gameOver);
 		}
 
 		// 初始化事件监听
 		private initListener() {
-			console.log('initListener');
 			this.addEventListener(SceneEvent.ChangeScene, this.onChangeScene, this);
 		}
 

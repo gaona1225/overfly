@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <e:Skin class="gamePlayingSkin" xmlns:e="http://ns.egret.com/eui">
-    <e:Image id="gameBg" source="bgNew_png" />
-    <e:Image id="gameBgClone" source="gameBg" />
+    <e:Image id="gameBg" source="bg_river" />
+    <e:Image id="gameBgClone" source="gameCloneBg" />
+    <e:Image id="gameBgClone2" source="gameCloneBg" />
+    <e:Image id="gameBgClone3" source="gameCloneBg" />
     <e:Image id="gameCar" source="car0_png" />
 </e:Skin>

@@ -27,20 +27,19 @@ var game;
         }
         // 添加到舞台
         GameStart.prototype.onAdded = function (e) {
+            console.log('onAdded');
             this.sceneEvent.eventType = game.SceneEvent.GAME_PLAYING;
             this.gameBg.width = game.Store.stageW;
             this.gameBg.height = game.Store.stageH;
-            this.startMask.width = game.Store.stageW;
-            this.startMask.height = game.Store.stageH;
-            this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPlayStart, this);
+            this.gameBg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPlayStart, this);
         };
         // 从舞台移除
         GameStart.prototype.onRemoved = function (e) {
-            console.log('onRemoved--gameStart');
-            this.startBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onPlayStart, this);
+            this.gameBg.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onPlayStart, this);
         };
         // 点击继续游戏按钮
         GameStart.prototype.onPlayStart = function (e) {
+            console.log('onPlayStart');
             game.ViewManager.getInstance().dispatchEvent(this.sceneEvent);
         };
         return GameStart;

@@ -1,29 +1,19 @@
 {
 	"groups": [
 		{
-			"keys": "button_down_png,button_up_png",
-			"name": "preload"
+			"keys": "success_m4a,soundCar_m4a,gameCloneBg,car0_png,bg_river,soundFallInRiver_mp3,startBg_jpg,success_jpg,fail_jpg",
+			"name": "myRes"
 		},
 		{
-			"keys": "gameBg,car0_png,successed_png,fighting_png,bgNew_png,soundCar_mp3",
-			"name": "myRes"
+			"keys": "",
+			"name": "preload"
 		}
 	],
 	"resources": [
 		{
-			"url": "assets/Button/button_down.png",
+			"url": "assets/MyResource/bgClone.png",
 			"type": "image",
-			"name": "button_down_png"
-		},
-		{
-			"url": "assets/Button/button_up.png",
-			"type": "image",
-			"name": "button_up_png"
-		},
-		{
-			"url": "assets/MyResource/bg.png",
-			"type": "image",
-			"name": "gameBg"
+			"name": "gameCloneBg"
 		},
 		{
 			"url": "assets/MyResource/car0.png",
@@ -31,29 +21,39 @@
 			"name": "car0_png"
 		},
 		{
-			"url": "assets/MyResource/loadingBg.png",
+			"url": "assets/MyResource/bgRiver.png",
 			"type": "image",
-			"name": "loadingBg_png"
+			"name": "bg_river"
 		},
 		{
-			"url": "assets/MyResource/successed.png",
+			"url": "assets/MyResource/startBg.jpg",
 			"type": "image",
-			"name": "successed_png"
+			"name": "startBg_jpg"
 		},
 		{
-			"url": "assets/MyResource/fighting.png",
-			"type": "image",
-			"name": "fighting_png"
-		},
-		{
-			"url": "assets/MyResource/bgNew.png",
-			"type": "image",
-			"name": "bgNew_png"
-		},
-		{
-			"name": "soundCar_mp3",
+			"url": "assets/MyResource/soundFallInRiver.mp3",
 			"type": "sound",
-			"url": "assets/MyResource/soundCar.mp3"
+			"name": "soundFallInRiver_mp3"
+		},
+		{
+			"url": "assets/MyResource/success.m4a",
+			"type": "sound",
+			"name": "success_m4a"
+		},
+		{
+			"url": "assets/MyResource/soundCar.m4a",
+			"type": "sound",
+			"name": "soundCar_m4a"
+		},
+		{
+			"url": "assets/MyResource/success.jpg",
+			"type": "image",
+			"name": "success_jpg"
+		},
+		{
+			"url": "assets/MyResource/fail.jpg",
+			"type": "image",
+			"name": "fail_jpg"
 		}
 	]
 }

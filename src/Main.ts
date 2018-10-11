@@ -64,7 +64,6 @@ class Main extends eui.UILayer {
         // this.startAnimation(result);
         await platform.login();
         const userInfo = await platform.getUserInfo();
-        console.log(userInfo);
 
     }
 
@@ -87,6 +86,10 @@ class Main extends eui.UILayer {
         return new Promise((resolve, reject) => {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
+            /*let _width = window.screen.availWidth;
+            let _height = window.screen.availHeight;
+            let _dpr = window.devicePixelRatio;
+            alert(`this.stage.height:${_height}, this.stage.width:${_width}, dpr:${_dpr}`);*/
             let theme = new eui.Theme("resource/default.thm.json", this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, () => {
                 resolve();

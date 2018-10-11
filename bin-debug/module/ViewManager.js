@@ -22,7 +22,6 @@ var game;
         }
         // 获取单例
         ViewManager.getInstance = function () {
-            console.log('getInstance');
             if (ViewManager.instance == null) {
                 ViewManager.instance = new ViewManager();
             }
@@ -30,22 +29,20 @@ var game;
         };
         // 开始
         ViewManager.prototype.start = function () {
-            console.log('start');
             this.init();
             this.initListener();
         };
         // 初始化数据
         ViewManager.prototype.init = function () {
-            console.log('init');
             this.gameStart = new game.GameStart();
             this.gamePlaying = new game.GamePlaying();
             this.gameOver = new game.GameOver();
             this.addChild(this.gameStart);
             // this.addChild(this.gamePlaying);
+            // this.addChild(this.gameOver);
         };
         // 初始化事件监听
         ViewManager.prototype.initListener = function () {
-            console.log('initListener');
             this.addEventListener(game.SceneEvent.ChangeScene, this.onChangeScene, this);
         };
         // 场景切换

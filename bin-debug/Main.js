@@ -115,7 +115,6 @@ var Main = (function (_super) {
                         return [4 /*yield*/, platform.getUserInfo()];
                     case 3:
                         userInfo = _a.sent();
-                        console.log(userInfo);
                         return [2 /*return*/];
                 }
             });
@@ -157,6 +156,10 @@ var Main = (function (_super) {
         return new Promise(function (resolve, reject) {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
+            /*let _width = window.screen.availWidth;
+            let _height = window.screen.availHeight;
+            let _dpr = window.devicePixelRatio;
+            alert(`this.stage.height:${_height}, this.stage.width:${_width}, dpr:${_dpr}`);*/
             var theme = new eui.Theme("resource/default.thm.json", _this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, function () {
                 resolve();
