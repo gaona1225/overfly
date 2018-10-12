@@ -12,10 +12,9 @@ module game {
 		
 		public static distanceLength: number = 0;//记录走过的路程距离
 		
-		public static targetDistance:number = 1350;//目标距离
-		
-		// public static stageH:number = 910;//舞台高
-		public static stageH:number = 1080;//舞台高
+		public static targetDistance:number = 1240;//目标距离
+
+		public static stageH:number = 1083;//舞台高
 		
 		public static stageW:number = 640;//舞台宽
 		

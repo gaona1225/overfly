@@ -35,7 +35,6 @@ module game {
 			this.sceneEvent.eventType = SceneEvent.GAME_OVER;
 			this.gameBg.width = Store.stageW;
 			this.gameBg.height = Store.stageH;
-			//this.gameBg.y = 0;
 
 			this.gameBgClone.width = Store.stageW;
 			this.gameBgClone.height = Store.stageH;
@@ -45,12 +44,9 @@ module game {
 
 			this.gameBgClone3.width = Store.stageW;
 			this.gameBgClone3.height = Store.stageH;
-			//this.gameBgClone.y = -2*Store.stageH;
 			// 车的位置，保持在屏幕下方
 			this.gameCar.x = Store.stageW/2 - this.gameCar.width/2;
 			this.gameCar.y = Store.stageH - this.gameCar.height - 100;
-			// this.gameCar.y = 977,  this.gameCar.height = 159, Store.stageH = 1136。
-			console.log(Store.stageH);
 			// 先拼接一段路，以便开始的路比较长
 			let bg = null;
 			bg = new MoveUtil(this.gameBgClone, false);
@@ -80,8 +76,6 @@ module game {
 			console.log(this.gameMapArray);
 
 			this.gameMapArray[0].getDistance(true); //这里只需要一个设置为true就可以。
-
-			// this.addEventListener(egret.Event.ENTER_FRAME, this.startAnimationFrame, this);
 			
 			// 陀螺仪
 			// 创建 DeviceOrientation 类
@@ -92,7 +86,6 @@ module game {
         	this.orientationObj.start();
 			
 			// 添加音效--发动机
-			// var sound:egret.Sound = RES.getRes("sound_mp3");
 			var sound:egret.Sound = RES.getRes("soundCar_m4a");
 			// play() 方法播放音频，有2个参数。startTime：声音开始播放的位置，默认为0。loops：声音播放的次数，小于等于0均为无限循环播放，大于0按照对应的值播放次数。
 			let channel:egret.SoundChannel = sound.play(0, -1);
@@ -122,7 +115,6 @@ module game {
 
 		// 落水处理
 		private isFallInRiver(): void {
-			// egret.Tween.get(this.gameCar).to({ scaleX: 0, scaleY: 0 },100,egret.Ease.backIn);
 			// 添加音效--落水
 			var soundFallInRiver:egret.Sound = RES.getRes("soundFallInRiver_mp3");
 			let channelFallInRiver:egret.SoundChannel = soundFallInRiver.play(0, 1);
@@ -142,7 +134,6 @@ module game {
 			Store.distanceLength = 0;
 			Store.currentSpeedY = 0;
 			Store.isGameOver = false;
-			// Store.failReason = 1;
 			this.gameCar.scaleX = 1;
 			this.gameCar.scaleY = 1;
 			this.soundChannel = null;
@@ -150,7 +141,6 @@ module game {
 				this.orientationObj.removeEventListener(egret.Event.CHANGE,this.startAnimation,this);
 			}
 			this.orientationObj = null;
-			// this.removeEventListener(egret.Event.ENTER_FRAME, this.startAnimationFrame, this);
 		}
 
 		// 游戏结束抛事件
@@ -161,43 +151,6 @@ module game {
 
 			ViewManager.getInstance().dispatchEvent(this.sceneEvent);
 			this.resetData();
-		}
-
-		private startAnimationFrame(): void {
-			// 检测游戏是否结束
-			if (Store.isGameOver) {
-				this.onGameOver();
-			}
-
-			// 检测是否遇到河流
-			if (Store.distanceLength >= 1000) {
-				this.isHitRiver();
-			} 
-
-			// 检测是否落水
-			if (Store.distanceLength > 1000 && Store.distanceLength < 2000) {
-				this.isFallInRiver();
-			}
-
-			// 检测是否跨越河流，河流宽200，车身长159，所以是300 + 359 取1000
-			if (Store.distanceLength >= 2000) {
-				this.isAcrossRiver();
-			}
-			// alert(e.beta);
-			let random = Math.random();
-			let _aSpeed = 0.1;
-			if (random > 0.5) {
-				_aSpeed = random*5;
-			} else {
-				_aSpeed = -random;
-			}
-			// 调节音量
-			if (this.soundChannel && this.soundChannel.volume >= 0){
-				this.soundChannel.volume = this.soundChannel.volume + _aSpeed;
-			}
-			this.gameMapArray.forEach(item => {
-				item.onEnterFrame(_aSpeed);
-			})
 		}
 
 		/**
@@ -212,15 +165,15 @@ module game {
 			}
 
 			// 检测是否遇到河流
-			if (Store.distanceLength >= 825) {
+			if (Store.distanceLength >= 870) {
 				this.isHitRiver();
 			} 
 
 			if (Store.currentSpeedY == 0) {
-				if (Store.distanceLength > 825 && Store.distanceLength < 1050) {
+				if (Store.distanceLength > 850 && Store.distanceLength < 1070) {
 					// 检测是否落水
 					this.isFallInRiver();
-				} else if (Store.distanceLength >= 1050 && Store.distanceLength <= Store.targetDistance) {
+				} else if (Store.distanceLength >= 1070 && Store.distanceLength <= Store.targetDistance) {
 					// 检测是否跨越河流
 					this.isAcrossRiver();
 				}
@@ -239,7 +192,6 @@ module game {
 			} else if (this.soundChannel && this.soundChannel.volume < 0) {
 				this.soundChannel.volume = 0;
 			}
-			// document.getElementById('myConsole2').innerHTML = 'distance: ' + Store.distanceLength.toString();
 			this.gameMapArray.forEach(item => {
 				item.onEnterFrame(_aSpeed);
 			})

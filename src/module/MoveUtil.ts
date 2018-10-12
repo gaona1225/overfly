@@ -4,20 +4,15 @@ module game {
 	 * y轴方向的移动封装
 	 */
 	export class MoveUtil extends egret.Sprite {
-		public p = document.createElement('p');
 		public span = document.createElement('span');
 		public constructor(target: any, isLoop: boolean = true) {
 			super();
 			this.obj = target;
 			this.isLoop = isLoop;
-			// this.p.id = 'myConsole';
-			// this.p.style.position = 'absolute';
-			// this.p.style.fontSize = '20px';
-			// document.getElementsByTagName('body')[0].appendChild(this.p);
-			// this.span.id = 'myConsole2';
-			// this.span.style.position = 'absolute';
-			// this.span.style.fontSize = '20px';
-			// document.getElementsByTagName('body')[0].appendChild(this.span);
+			/*this.span.id = 'myConsole';
+			this.span.style.position = 'absolute';
+			this.span.style.fontSize = '20px';
+			document.getElementsByTagName('body')[0].appendChild(this.span);*/
 		}
 
 		private _startPos: egret.Point = new egret.Point(0, 0); //默认起点位置

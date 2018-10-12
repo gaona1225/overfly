@@ -1,29 +1,19 @@
 {
 	"groups": [
 		{
-			"keys": "success_m4a,soundCar_m4a,gameCloneBg,car0_png,bg_river,soundFallInRiver_mp3,startBg_jpg,success_jpg,fail_jpg",
+			"keys": "success_m4a,soundCar_m4a,car0_png,soundFallInRiver_mp3,startBg_jpg,success_jpg,fail_jpg,bg_river,gameCloneBg,bgEnd",
 			"name": "myRes"
 		},
 		{
-			"keys": "",
-			"name": "preload"
+			"name": "preload",
+			"keys": "bgEnd_jpg"
 		}
 	],
 	"resources": [
 		{
-			"url": "assets/MyResource/bgClone.png",
-			"type": "image",
-			"name": "gameCloneBg"
-		},
-		{
 			"url": "assets/MyResource/car0.png",
 			"type": "image",
 			"name": "car0_png"
-		},
-		{
-			"url": "assets/MyResource/bgRiver.png",
-			"type": "image",
-			"name": "bg_river"
 		},
 		{
 			"url": "assets/MyResource/startBg.jpg",
@@ -54,6 +44,26 @@
 			"url": "assets/MyResource/fail.jpg",
 			"type": "image",
 			"name": "fail_jpg"
+		},
+		{
+			"url": "assets/MyResource/bgRiver.jpg",
+			"type": "image",
+			"name": "bg_river"
+		},
+		{
+			"url": "assets/MyResource/bgClone.jpg",
+			"type": "image",
+			"name": "gameCloneBg"
+		},
+		{
+			"url": "assets/MyResource/bgEnd.jpg",
+			"type": "image",
+			"name": "bgEnd"
+		},
+		{
+			"name": "bgEnd_jpg",
+			"type": "image",
+			"url": "assets/MyResource/bgEnd.jpg"
 		}
 	]
 }

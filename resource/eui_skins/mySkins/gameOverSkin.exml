@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <e:Skin class="gameOverSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui">
         <e:Image id="result" source="success_jpg" />
-        <e:Label id="failReasonMsg" text="" textColor="#ff0000"></e:Label>
-        <e:Label id="carMsg" text="小常识：大黄蜂变形后是雪佛兰科迈罗跑车" size="24" textColor="#1e4a05"></e:Label>
+        <e:Label id="failReasonMsg" text="" textColor="0xff0000"></e:Label>
+        <e:Label id="carMsg" text="小常识：大黄蜂变形后是雪佛兰科迈罗跑车" size="24" textColor="0x1e4a05"></e:Label>
 </e:Skin>

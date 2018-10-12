@@ -19,7 +19,6 @@ var game;
         function MoveUtil(target, isLoop) {
             if (isLoop === void 0) { isLoop = true; }
             var _this = _super.call(this) || this;
-            _this.p = document.createElement('p');
             _this.span = document.createElement('span');
             _this._startPos = new egret.Point(0, 0); //默认起点位置
             _this._endPos = new egret.Point(0, game.Store.stageH); //默认终点位置
@@ -34,14 +33,10 @@ var game;
             _this.obj = target;
             _this.isLoop = isLoop;
             return _this;
-            // this.p.id = 'myConsole';
-            // this.p.style.position = 'absolute';
-            // this.p.style.fontSize = '20px';
-            // document.getElementsByTagName('body')[0].appendChild(this.p);
-            // this.span.id = 'myConsole2';
-            // this.span.style.position = 'absolute';
-            // this.span.style.fontSize = '20px';
-            // document.getElementsByTagName('body')[0].appendChild(this.span);
+            /*this.span.id = 'myConsole';
+            this.span.style.position = 'absolute';
+            this.span.style.fontSize = '20px';
+            document.getElementsByTagName('body')[0].appendChild(this.span);*/
         }
         Object.defineProperty(MoveUtil.prototype, "startPos", {
             set: function (value) {
