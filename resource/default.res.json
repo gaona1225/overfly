@@ -3,10 +3,6 @@
 		{
 			"keys": "success_m4a,soundCar_m4a,car0_png,soundFallInRiver_mp3,startBg_jpg,success_jpg,fail_jpg,bg_river,gameCloneBg,bgEnd",
 			"name": "myRes"
-		},
-		{
-			"name": "preload",
-			"keys": "bgEnd_jpg"
 		}
 	],
 	"resources": [
@@ -59,11 +55,6 @@
 			"url": "assets/MyResource/bgEnd.jpg",
 			"type": "image",
 			"name": "bgEnd"
-		},
-		{
-			"name": "bgEnd_jpg",
-			"type": "image",
-			"url": "assets/MyResource/bgEnd.jpg"
 		}
 	]
 }
