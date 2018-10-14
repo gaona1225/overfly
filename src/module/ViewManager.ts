@@ -45,25 +45,29 @@ module game {
 
 		// 场景切换
 		private onChangeScene(e: SceneEvent) {
-			// 移除所有子对象
-			this.removeChildren();
-
-			// 判断事件，接下来添加场景到舞台展现
-			switch (e.eventType) {
-				case SceneEvent.GAME_START:
-					this.addChild(this.gameStart);
-					break;
-
-				case SceneEvent.GAME_PLAYING:
-					this.addChild(this.gamePlaying);
-					break;
-
-				case SceneEvent.GAME_OVER:
+			// 切换到gameover时要延迟1s，让玩家看清楚现在小车的情况
+			if (e.eventType === SceneEvent.GAME_OVER) {
+				setTimeout(()=> {
+					this.removeChildren();
 					this.addChild(this.gameOver);
-					break;
-				
-				default: break;
+				}, 500);
+			} else {
+				// 移除所有子对象
+				this.removeChildren();
+				// 判断事件，接下来添加场景到舞台展现
+				switch (e.eventType) {
+					case SceneEvent.GAME_START:
+						this.addChild(this.gameStart);
+						break;
+
+					case SceneEvent.GAME_PLAYING:
+						this.addChild(this.gamePlaying);
+						break;
+					
+					default: break;
+				}
 			}
+			
 		}
 	}
 }

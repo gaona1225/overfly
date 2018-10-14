@@ -9,10 +9,10 @@ module game {
 			super();
 			this.obj = target;
 			this.isLoop = isLoop;
-			/*this.span.id = 'myConsole';
+			this.span.id = 'myConsole';
 			this.span.style.position = 'absolute';
 			this.span.style.fontSize = '20px';
-			document.getElementsByTagName('body')[0].appendChild(this.span);*/
+			document.getElementsByTagName('body')[0].appendChild(this.span);
 		}
 
 		private _startPos: egret.Point = new egret.Point(0, 0); //默认起点位置

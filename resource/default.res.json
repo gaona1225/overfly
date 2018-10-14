@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "success_m4a,soundCar_m4a,car0_png,soundFallInRiver_mp3,startBg_jpg,success_jpg,fail_jpg,bg_river,gameCloneBg,bgEnd",
+			"keys": "success_m4a,soundCar_m4a,car0_png,soundFallInRiver_mp3,startBg_jpg,success_jpg,fail_jpg,bg_river,gameCloneBg,bgEnd,car1_png,car2_png,car3_png",
 			"name": "myRes"
 		}
 	],
@@ -55,6 +55,21 @@
 			"url": "assets/MyResource/bgEnd.jpg",
 			"type": "image",
 			"name": "bgEnd"
+		},
+		{
+			"url": "assets/MyResource/car1.png",
+			"type": "image",
+			"name": "car1_png"
+		},
+		{
+			"url": "assets/MyResource/car2.png",
+			"type": "image",
+			"name": "car2_png"
+		},
+		{
+			"url": "assets/MyResource/car3.png",
+			"type": "image",
+			"name": "car3_png"
 		}
 	]
 }

@@ -25,16 +25,18 @@ var game;
             _this.addEventListener(egret.Event.REMOVED_FROM_STAGE, _this.onRemoved, _this);
             return _this;
         }
+        // private soundChannelSuccess:egret.SoundChannel;
         // 添加到舞台
         GameOver.prototype.onAdded = function (e) {
             this.sceneEvent.eventType = game.SceneEvent.GAME_START;
             if (game.Store.gameResult) {
                 this.result.source = "success_jpg";
-                this.failReasonMsg.text = '';
+                var timeTemp = game.Store.gameTimer / 1000;
+                this.failReasonMsg.text = '太棒啦！用时' + timeTemp.toFixed(2) + 's，超过95%的小伙伴！';
                 // 添加音效--欢呼
-                var soundSuccess = RES.getRes("success_m4a");
-                var channelSuccess = soundSuccess.play(0, 1);
-                this.soundChannelSuccess = channelSuccess;
+                // var soundSuccess:egret.Sound = RES.getRes("success_m4a");
+                // let channelSuccess:egret.SoundChannel = soundSuccess.play(0, 1);
+                // this.soundChannelSuccess = channelSuccess;
             }
             else {
                 this.result.source = "fail_jpg";
@@ -52,7 +54,7 @@ var game;
             this.result.width = game.Store.stageW;
             this.result.height = game.Store.stageH;
             this.failReasonMsg.left = game.Store.stageW / 2 - this.failReasonMsg.width / 2;
-            this.failReasonMsg.top = 630;
+            this.failReasonMsg.top = 670;
             this.carMsg.left = game.Store.stageW / 2 - this.carMsg.width / 2;
             this.carMsg.bottom = 80;
             this.result.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPlayAgain, this);

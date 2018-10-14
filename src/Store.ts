@@ -12,7 +12,7 @@ module game {
 		
 		public static distanceLength: number = 0;//记录走过的路程距离
 		
-		public static targetDistance:number = 1240;//目标距离
+		public static targetDistance:number = 1200;//目标距离
 
 		public static stageH:number = 1083;//舞台高
 		
@@ -21,5 +21,7 @@ module game {
 		public static currentSpeedY:number = 0;//当前车速度
 		
 		public static isGameOver:boolean = false;//游戏结束状态
+
+		public static gameTimer:number = 0; //游戏时间
 	}
 }

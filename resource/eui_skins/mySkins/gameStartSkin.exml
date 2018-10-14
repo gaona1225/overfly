@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <e:Skin class="gameStartSkin" states="up,down,disabled" xmlns:e="http://ns.egret.com/eui">
     <e:Image id="gameBg" source="startBg_jpg" />
+    <e:Image id="selectCar1" source="car1_png" />
+    <e:Image id="selectCar2" source="car2_png" />
+    <e:Image id="selectCar3" source="car3_png" />
 </e:Skin>

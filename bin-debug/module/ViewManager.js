@@ -47,20 +47,27 @@ var game;
         };
         // 场景切换
         ViewManager.prototype.onChangeScene = function (e) {
-            // 移除所有子对象
-            this.removeChildren();
-            // 判断事件，接下来添加场景到舞台展现
-            switch (e.eventType) {
-                case game.SceneEvent.GAME_START:
-                    this.addChild(this.gameStart);
-                    break;
-                case game.SceneEvent.GAME_PLAYING:
-                    this.addChild(this.gamePlaying);
-                    break;
-                case game.SceneEvent.GAME_OVER:
-                    this.addChild(this.gameOver);
-                    break;
-                default: break;
+            var _this = this;
+            // 切换到gameover时要延迟1s，让玩家看清楚现在小车的情况
+            if (e.eventType === game.SceneEvent.GAME_OVER) {
+                setTimeout(function () {
+                    _this.removeChildren();
+                    _this.addChild(_this.gameOver);
+                }, 500);
+            }
+            else {
+                // 移除所有子对象
+                this.removeChildren();
+                // 判断事件，接下来添加场景到舞台展现
+                switch (e.eventType) {
+                    case game.SceneEvent.GAME_START:
+                        this.addChild(this.gameStart);
+                        break;
+                    case game.SceneEvent.GAME_PLAYING:
+                        this.addChild(this.gamePlaying);
+                        break;
+                    default: break;
+                }
             }
         };
         return ViewManager;

@@ -26,13 +26,14 @@ module game {
 
     	private soundChannel:egret.SoundChannel;
 		private soundChannelFallInRiver:egret.SoundChannel;
+		private soundChannelSuccess:egret.SoundChannel;
 
 
 
 		// 添加到舞台
 		private onAdded(e:egret.Event) {
-			console.log('play onAdded');
 			this.sceneEvent.eventType = SceneEvent.GAME_OVER;
+			// 设置背景图的宽高，共4张背景图拼接成整个赛道
 			this.gameBg.width = Store.stageW;
 			this.gameBg.height = Store.stageH;
 
@@ -61,19 +62,18 @@ module game {
 			bg.endPos = new egret.Point(0, 2*Store.stageH);
 			this.gameMapArray.push(bg);
 			// 在河流后面再拼2段路
-			// 第一段
+			// 第一段 带终点标志
 			bg = new MoveUtil(this.gameBgClone2, false);
 			this.gameBgClone2.y = -2*Store.stageH;
 			bg.startPos = new egret.Point(0, -2*Store.stageH);
 			bg.endPos = new egret.Point(0, Store.stageH);
 			this.gameMapArray.push(bg);
-			// 第二段
+			// 第二段 简单的马路，便于小车飞出去后还可以走一段路程
 			bg = new MoveUtil(this.gameBgClone3, false);
 			this.gameBgClone3.y = -3*Store.stageH;
 			bg.startPos = new egret.Point(0, -3*Store.stageH);
 			bg.endPos = new egret.Point(0, 0);
 			this.gameMapArray.push(bg);
-			console.log(this.gameMapArray);
 
 			this.gameMapArray[0].getDistance(true); //这里只需要一个设置为true就可以。
 			
@@ -91,35 +91,42 @@ module game {
 			let channel:egret.SoundChannel = sound.play(0, -1);
 			this.soundChannel = channel;
 			this.soundChannel.volume = 1;
-
+			// 记录游戏开始时间
+			Store.gameTimer = new Date().getTime();
 		}
 
 		// 从舞台移除
 		private onRemoved(e:egret.Event) {
-			console.log('onRemoved--gamePlaying');
 			this.resetData();
 		}
 
 		// 遇到河流处理
 		private isHitRiver(): void {
-			this.gameCar.scaleX = 0.8;
-			this.gameCar.scaleY = 0.8;
+			this.gameCar.scaleX = 1.2;
+			this.gameCar.scaleY = 1.2;
 		}
-
+		// 跨越河流的缩放处理
+		private acrossRiverScale(): void {
+			egret.Tween.get(this.gameCar).to({ scaleX: 1, scaleY: 1 },100,egret.Ease.backIn);
+		}
 		// 跨越河流处理
 		private isAcrossRiver(): void {
-			egret.Tween.get(this.gameCar).to({ scaleX: 0.8, scaleY: 0.8 },100,egret.Ease.backIn);
+			var soundSuccess:egret.Sound = RES.getRes("success_m4a");
+			let channelSuccess:egret.SoundChannel = soundSuccess.play(0, 1);
+			this.soundChannelSuccess = channelSuccess;
+			egret.Tween.get(this.gameCar).to({ scaleX: 1, scaleY: 1 },100,egret.Ease.backIn);
 			Store.gameResult = true;
+			Store.gameTimer = new Date().getTime() - Store.gameTimer;
 			this.onGameOver();
 		}
 
 		// 落水处理
 		private isFallInRiver(): void {
 			// 添加音效--落水
+			egret.Tween.get(this.gameCar).to({ scaleX: 0, scaleY: 0 },400,egret.Ease.backIn);
 			var soundFallInRiver:egret.Sound = RES.getRes("soundFallInRiver_mp3");
 			let channelFallInRiver:egret.SoundChannel = soundFallInRiver.play(0, 1);
 			this.soundChannelFallInRiver = channelFallInRiver;
-
 			Store.gameResult = false;
 			Store.failReason = 1;
 			this.onGameOver();
@@ -127,15 +134,9 @@ module game {
 
 		// 重置数据
 		private resetData() {
-			this.gameBg.y = -Store.stageH;
-			this.gameBgClone.y = 0;
-			this.gameBgClone2.y = -2*Store.stageH;
-			this.gameBgClone3.y = -3*Store.stageH;
 			Store.distanceLength = 0;
 			Store.currentSpeedY = 0;
 			Store.isGameOver = false;
-			this.gameCar.scaleX = 1;
-			this.gameCar.scaleY = 1;
 			this.soundChannel = null;
 			if (this.orientationObj && this.orientationObj.removeEventListener) {
 				this.orientationObj.removeEventListener(egret.Event.CHANGE,this.startAnimation,this);
@@ -148,7 +149,6 @@ module game {
 			if (this.soundChannel && this.soundChannel.stop) {
 				this.soundChannel.stop();
 			}
-
 			ViewManager.getInstance().dispatchEvent(this.sceneEvent);
 			this.resetData();
 		}
@@ -170,15 +170,19 @@ module game {
 			} 
 
 			if (Store.currentSpeedY == 0) {
-				if (Store.distanceLength > 850 && Store.distanceLength < 1070) {
+				if (Store.distanceLength > 850 && Store.distanceLength < 1050) {
 					// 检测是否落水
 					this.isFallInRiver();
-				} else if (Store.distanceLength >= 1070 && Store.distanceLength <= Store.targetDistance) {
+				} else if (Store.distanceLength >= 1050 && Store.distanceLength <= Store.targetDistance) {
 					// 检测是否跨越河流
 					this.isAcrossRiver();
 				}
 			}
-
+			// 不管是否速度为0，小车过河后都要回到缩放为1
+			if (Store.distanceLength >= 1070) {
+				this.acrossRiverScale();
+			}
+			// 飞出去
 			if (Store.distanceLength >= Store.targetDistance) {
 				Store.gameResult = false;
 				Store.failReason = 2;

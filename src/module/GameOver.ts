@@ -17,7 +17,7 @@ module game {
 		public failReasonMsg: eui.Label;
 		public carMsg: eui.Label;
 
-		private soundChannelSuccess:egret.SoundChannel;
+		// private soundChannelSuccess:egret.SoundChannel;
 
 		// 添加到舞台
 		private onAdded(e:egret.Event) {
@@ -25,11 +25,12 @@ module game {
 
 			if (Store.gameResult) {
 				this.result.source = "success_jpg";
-				this.failReasonMsg.text = '';
+				let timeTemp = Store.gameTimer/1000;
+				this.failReasonMsg.text = '太棒啦！用时'+ timeTemp.toFixed(2) + 's，超过95%的小伙伴！';
 				// 添加音效--欢呼
-				var soundSuccess:egret.Sound = RES.getRes("success_m4a");
-				let channelSuccess:egret.SoundChannel = soundSuccess.play(0, 1);
-				this.soundChannelSuccess = channelSuccess;
+				// var soundSuccess:egret.Sound = RES.getRes("success_m4a");
+				// let channelSuccess:egret.SoundChannel = soundSuccess.play(0, 1);
+				// this.soundChannelSuccess = channelSuccess;
 			} else {
 				this.result.source = "fail_jpg";
 				// 失败原因，默认为1,表示掉水里了，如果为2表示飞出去了
@@ -50,7 +51,7 @@ module game {
 			this.result.height = Store.stageH;
 
 			this.failReasonMsg.left = Store.stageW/2 - this.failReasonMsg.width/2;
-			this.failReasonMsg.top = 630;
+			this.failReasonMsg.top = 670;
 
 			this.carMsg.left = Store.stageW/2 - this.carMsg.width/2;
 			this.carMsg.bottom = 80;

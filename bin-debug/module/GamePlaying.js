@@ -30,8 +30,8 @@ var game;
         }
         // 添加到舞台
         GamePlaying.prototype.onAdded = function (e) {
-            console.log('play onAdded');
             this.sceneEvent.eventType = game.SceneEvent.GAME_OVER;
+            // 设置背景图的宽高，共4张背景图拼接成整个赛道
             this.gameBg.width = game.Store.stageW;
             this.gameBg.height = game.Store.stageH;
             this.gameBgClone.width = game.Store.stageW;
@@ -57,19 +57,18 @@ var game;
             bg.endPos = new egret.Point(0, 2 * game.Store.stageH);
             this.gameMapArray.push(bg);
             // 在河流后面再拼2段路
-            // 第一段
+            // 第一段 带终点标志
             bg = new game.MoveUtil(this.gameBgClone2, false);
             this.gameBgClone2.y = -2 * game.Store.stageH;
             bg.startPos = new egret.Point(0, -2 * game.Store.stageH);
             bg.endPos = new egret.Point(0, game.Store.stageH);
             this.gameMapArray.push(bg);
-            // 第二段
+            // 第二段 简单的马路，便于小车飞出去后还可以走一段路程
             bg = new game.MoveUtil(this.gameBgClone3, false);
             this.gameBgClone3.y = -3 * game.Store.stageH;
             bg.startPos = new egret.Point(0, -3 * game.Store.stageH);
             bg.endPos = new egret.Point(0, 0);
             this.gameMapArray.push(bg);
-            console.log(this.gameMapArray);
             this.gameMapArray[0].getDistance(true); //这里只需要一个设置为true就可以。
             // 陀螺仪
             // 创建 DeviceOrientation 类
@@ -85,26 +84,36 @@ var game;
             var channel = sound.play(0, -1);
             this.soundChannel = channel;
             this.soundChannel.volume = 1;
+            // 记录游戏开始时间
+            game.Store.gameTimer = new Date().getTime();
         };
         // 从舞台移除
         GamePlaying.prototype.onRemoved = function (e) {
-            console.log('onRemoved--gamePlaying');
             this.resetData();
         };
         // 遇到河流处理
         GamePlaying.prototype.isHitRiver = function () {
-            this.gameCar.scaleX = 0.8;
-            this.gameCar.scaleY = 0.8;
+            this.gameCar.scaleX = 1.2;
+            this.gameCar.scaleY = 1.2;
+        };
+        // 跨越河流的缩放处理
+        GamePlaying.prototype.acrossRiverScale = function () {
+            egret.Tween.get(this.gameCar).to({ scaleX: 1, scaleY: 1 }, 100, egret.Ease.backIn);
         };
         // 跨越河流处理
         GamePlaying.prototype.isAcrossRiver = function () {
-            egret.Tween.get(this.gameCar).to({ scaleX: 0.8, scaleY: 0.8 }, 100, egret.Ease.backIn);
+            var soundSuccess = RES.getRes("success_m4a");
+            var channelSuccess = soundSuccess.play(0, 1);
+            this.soundChannelSuccess = channelSuccess;
+            egret.Tween.get(this.gameCar).to({ scaleX: 1, scaleY: 1 }, 100, egret.Ease.backIn);
             game.Store.gameResult = true;
+            game.Store.gameTimer = new Date().getTime() - game.Store.gameTimer;
             this.onGameOver();
         };
         // 落水处理
         GamePlaying.prototype.isFallInRiver = function () {
             // 添加音效--落水
+            egret.Tween.get(this.gameCar).to({ scaleX: 0, scaleY: 0 }, 400, egret.Ease.backIn);
             var soundFallInRiver = RES.getRes("soundFallInRiver_mp3");
             var channelFallInRiver = soundFallInRiver.play(0, 1);
             this.soundChannelFallInRiver = channelFallInRiver;
@@ -114,15 +123,9 @@ var game;
         };
         // 重置数据
         GamePlaying.prototype.resetData = function () {
-            this.gameBg.y = -game.Store.stageH;
-            this.gameBgClone.y = 0;
-            this.gameBgClone2.y = -2 * game.Store.stageH;
-            this.gameBgClone3.y = -3 * game.Store.stageH;
             game.Store.distanceLength = 0;
             game.Store.currentSpeedY = 0;
             game.Store.isGameOver = false;
-            this.gameCar.scaleX = 1;
-            this.gameCar.scaleY = 1;
             this.soundChannel = null;
             if (this.orientationObj && this.orientationObj.removeEventListener) {
                 this.orientationObj.removeEventListener(egret.Event.CHANGE, this.startAnimation, this);
@@ -151,15 +154,20 @@ var game;
                 this.isHitRiver();
             }
             if (game.Store.currentSpeedY == 0) {
-                if (game.Store.distanceLength > 850 && game.Store.distanceLength < 1070) {
+                if (game.Store.distanceLength > 850 && game.Store.distanceLength < 1050) {
                     // 检测是否落水
                     this.isFallInRiver();
                 }
-                else if (game.Store.distanceLength >= 1070 && game.Store.distanceLength <= game.Store.targetDistance) {
+                else if (game.Store.distanceLength >= 1050 && game.Store.distanceLength <= game.Store.targetDistance) {
                     // 检测是否跨越河流
                     this.isAcrossRiver();
                 }
             }
+            // 不管是否速度为0，小车过河后都要回到缩放为1
+            if (game.Store.distanceLength >= 1070) {
+                this.acrossRiverScale();
+            }
+            // 飞出去
             if (game.Store.distanceLength >= game.Store.targetDistance) {
                 game.Store.gameResult = false;
                 game.Store.failReason = 2;

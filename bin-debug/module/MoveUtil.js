@@ -32,11 +32,11 @@ var game;
             _this.time = 0;
             _this.obj = target;
             _this.isLoop = isLoop;
+            _this.span.id = 'myConsole';
+            _this.span.style.position = 'absolute';
+            _this.span.style.fontSize = '20px';
+            document.getElementsByTagName('body')[0].appendChild(_this.span);
             return _this;
-            /*this.span.id = 'myConsole';
-            this.span.style.position = 'absolute';
-            this.span.style.fontSize = '20px';
-            document.getElementsByTagName('body')[0].appendChild(this.span);*/
         }
         Object.defineProperty(MoveUtil.prototype, "startPos", {
             set: function (value) {
